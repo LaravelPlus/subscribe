@@ -1,0 +1,46 @@
+{
+    "name": "nejcc/subscribe",
+    "description": "Email subscription and newsletter management with multi-provider support (Brevo, Mailchimp, HubSpot, ConvertKit)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nejc Cotic",
+            "email": "nejc.cotic@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/http": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nejcc\\Subscribe\\": "src/",
+            "Nejcc\\Subscribe\\Database\\Factories\\": "database/factories/",
+            "Nejcc\\Subscribe\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nejcc\\Subscribe\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nejcc\\Subscribe\\SubscribeServiceProvider"
+            ],
+            "aliases": {
+                "Subscribe": "Nejcc\\Subscribe\\Facades\\Subscribe"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
