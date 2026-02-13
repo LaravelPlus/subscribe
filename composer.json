@@ -5,7 +5,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Nejc Cotic",
+            "name": "LaravelPlus",
             "email": "nejc.cotic@gmail.com"
         }
     ],
@@ -21,23 +21,23 @@
     },
     "autoload": {
         "psr-4": {
-            "Nejcc\\Subscribe\\": "src/",
-            "Nejcc\\Subscribe\\Database\\Factories\\": "database/factories/",
-            "Nejcc\\Subscribe\\Database\\Seeders\\": "database/seeders/"
+            "LaravelPlus\\Subscribe\\": "src/",
+            "LaravelPlus\\Subscribe\\Database\\Factories\\": "database/factories/",
+            "LaravelPlus\\Subscribe\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nejcc\\Subscribe\\Tests\\": "tests/"
+            "LaravelPlus\\Subscribe\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Nejcc\\Subscribe\\SubscribeServiceProvider"
+                "LaravelPlus\\Subscribe\\SubscribeServiceProvider"
             ],
             "aliases": {
-                "Subscribe": "Nejcc\\Subscribe\\Facades\\Subscribe"
+                "Subscribe": "LaravelPlus\\Subscribe\\Facades\\Subscribe"
             }
         }
     },

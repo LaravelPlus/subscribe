@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Database\Factories;
+namespace LaravelPlus\Subscribe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Nejcc\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\Subscriber;
 
 final class SubscriberFactory extends Factory
 {

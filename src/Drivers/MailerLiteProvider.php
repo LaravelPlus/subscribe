@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Drivers;
+namespace LaravelPlus\Subscribe\Drivers;
 
-use Nejcc\Subscribe\DTOs\Subscriber;
-use Nejcc\Subscribe\DTOs\SubscriberList;
-use Nejcc\Subscribe\DTOs\SyncResult;
+use LaravelPlus\Subscribe\DTOs\Subscriber;
+use LaravelPlus\Subscribe\DTOs\SubscriberList;
+use LaravelPlus\Subscribe\DTOs\SyncResult;
 
 final class MailerLiteProvider extends AbstractProvider
 {

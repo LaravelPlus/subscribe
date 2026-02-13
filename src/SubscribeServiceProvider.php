@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe;
+namespace LaravelPlus\Subscribe;
 
 use App\Support\AdminNavigation;
 use Illuminate\Support\ServiceProvider;

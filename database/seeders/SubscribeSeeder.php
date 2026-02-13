@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Database\Seeders;
+namespace LaravelPlus\Subscribe\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Nejcc\Subscribe\Models\Subscriber;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 
 final class SubscribeSeeder extends Seeder
 {

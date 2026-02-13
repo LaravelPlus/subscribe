@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Drivers;
+namespace LaravelPlus\Subscribe\Drivers;
 
-use Nejcc\Subscribe\DTOs\Subscriber;
-use Nejcc\Subscribe\DTOs\SubscriberList;
-use Nejcc\Subscribe\DTOs\SyncResult;
-use Nejcc\Subscribe\Models\Subscriber as SubscriberModel;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\DTOs\Subscriber;
+use LaravelPlus\Subscribe\DTOs\SubscriberList;
+use LaravelPlus\Subscribe\DTOs\SyncResult;
+use LaravelPlus\Subscribe\Models\Subscriber as SubscriberModel;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 
 final class DatabaseProvider extends AbstractProvider
 {

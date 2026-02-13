@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nejcc\Subscribe\Http\Controllers\SubscribeController;
+use LaravelPlus\Subscribe\Http\Controllers\SubscribeController;
 
 Route::prefix(config('subscribe.routes.prefix', 'subscribe'))
     ->middleware(config('subscribe.routes.middleware', ['web']))

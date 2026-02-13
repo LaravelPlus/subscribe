@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Drivers;
+namespace LaravelPlus\Subscribe\Drivers;
 
 use Illuminate\Support\Facades\Http;
-use Nejcc\Subscribe\Contracts\SubscribeProviderContract;
-use Nejcc\Subscribe\DTOs\Subscriber;
-use Nejcc\Subscribe\DTOs\SubscriberList;
-use Nejcc\Subscribe\DTOs\SyncResult;
+use LaravelPlus\Subscribe\Contracts\SubscribeProviderContract;
+use LaravelPlus\Subscribe\DTOs\Subscriber;
+use LaravelPlus\Subscribe\DTOs\SubscriberList;
+use LaravelPlus\Subscribe\DTOs\SyncResult;
 
 abstract class AbstractProvider implements SubscribeProviderContract
 {

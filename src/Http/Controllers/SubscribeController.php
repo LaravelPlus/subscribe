@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Http\Controllers;
+namespace LaravelPlus\Subscribe\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -10,17 +10,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Nejcc\Subscribe\DTOs\Subscriber as SubscriberDTO;
-use Nejcc\Subscribe\Events\ConfirmationEmailSent;
-use Nejcc\Subscribe\Events\Subscribed;
-use Nejcc\Subscribe\Events\SubscriptionConfirmed;
-use Nejcc\Subscribe\Events\Unsubscribed;
-use Nejcc\Subscribe\Facades\Subscribe;
-use Nejcc\Subscribe\Http\Requests\SubscribeRequest;
-use Nejcc\Subscribe\Http\Requests\UnsubscribeRequest;
-use Nejcc\Subscribe\Mail\ConfirmSubscription;
-use Nejcc\Subscribe\Models\Subscriber;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\DTOs\Subscriber as SubscriberDTO;
+use LaravelPlus\Subscribe\Events\ConfirmationEmailSent;
+use LaravelPlus\Subscribe\Events\Subscribed;
+use LaravelPlus\Subscribe\Events\SubscriptionConfirmed;
+use LaravelPlus\Subscribe\Events\Unsubscribed;
+use LaravelPlus\Subscribe\Facades\Subscribe;
+use LaravelPlus\Subscribe\Http\Requests\SubscribeRequest;
+use LaravelPlus\Subscribe\Http\Requests\UnsubscribeRequest;
+use LaravelPlus\Subscribe\Mail\ConfirmSubscription;
+use LaravelPlus\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 
 final class SubscribeController extends Controller
 {

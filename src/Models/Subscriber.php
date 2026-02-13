@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Models;
+namespace LaravelPlus\Subscribe\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Nejcc\Subscribe\Database\Factories\SubscriberFactory;
+use LaravelPlus\Subscribe\Database\Factories\SubscriberFactory;
 
 final class Subscriber extends Model
 {

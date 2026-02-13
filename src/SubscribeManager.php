@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe;
+namespace LaravelPlus\Subscribe;
 
 use Illuminate\Support\Manager;
-use Nejcc\Subscribe\Contracts\SubscribeProviderContract;
-use Nejcc\Subscribe\Drivers\BrevoProvider;
-use Nejcc\Subscribe\Drivers\ConvertKitProvider;
-use Nejcc\Subscribe\Drivers\DatabaseProvider;
-use Nejcc\Subscribe\Drivers\HubSpotProvider;
-use Nejcc\Subscribe\Drivers\MailchimpProvider;
-use Nejcc\Subscribe\Drivers\MailerLiteProvider;
+use LaravelPlus\Subscribe\Contracts\SubscribeProviderContract;
+use LaravelPlus\Subscribe\Drivers\BrevoProvider;
+use LaravelPlus\Subscribe\Drivers\ConvertKitProvider;
+use LaravelPlus\Subscribe\Drivers\DatabaseProvider;
+use LaravelPlus\Subscribe\Drivers\HubSpotProvider;
+use LaravelPlus\Subscribe\Drivers\MailchimpProvider;
+use LaravelPlus\Subscribe\Drivers\MailerLiteProvider;
 
 final class SubscribeManager extends Manager
 {

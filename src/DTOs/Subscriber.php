@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\DTOs;
+namespace LaravelPlus\Subscribe\DTOs;
 
 final readonly class Subscriber
 {

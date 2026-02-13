@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nejcc\Subscribe\Http\Controllers\Admin\DashboardController;
-use Nejcc\Subscribe\Http\Controllers\Admin\ListController;
-use Nejcc\Subscribe\Http\Controllers\Admin\SubscriberController;
+use LaravelPlus\Subscribe\Http\Controllers\Admin\DashboardController;
+use LaravelPlus\Subscribe\Http\Controllers\Admin\ListController;
+use LaravelPlus\Subscribe\Http\Controllers\Admin\SubscriberController;
 
 Route::prefix(config('subscribe.admin.prefix', 'admin/subscribers'))
     ->middleware(config('subscribe.admin.middleware', ['web', 'auth', 'role:super-admin,admin']))

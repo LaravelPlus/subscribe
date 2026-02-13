@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Events;
+namespace LaravelPlus\Subscribe\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Nejcc\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\Subscriber;
 
 final class SubscriptionConfirmed
 {

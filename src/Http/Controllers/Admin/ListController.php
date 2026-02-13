@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Http\Controllers\Admin;
+namespace LaravelPlus\Subscribe\Http\Controllers\Admin;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,11 +10,11 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
-use Nejcc\Subscribe\DTOs\SubscriberList as SubscriberListDTO;
-use Nejcc\Subscribe\Facades\Subscribe;
-use Nejcc\Subscribe\Http\Requests\StoreListRequest;
-use Nejcc\Subscribe\Http\Requests\UpdateListRequest;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\DTOs\SubscriberList as SubscriberListDTO;
+use LaravelPlus\Subscribe\Facades\Subscribe;
+use LaravelPlus\Subscribe\Http\Requests\StoreListRequest;
+use LaravelPlus\Subscribe\Http\Requests\UpdateListRequest;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 
 final class ListController extends Controller
 {

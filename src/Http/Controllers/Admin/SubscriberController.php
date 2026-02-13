@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Http\Controllers\Admin;
+namespace LaravelPlus\Subscribe\Http\Controllers\Admin;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
-use Nejcc\Subscribe\Events\ConfirmationEmailSent;
-use Nejcc\Subscribe\Events\SubscriberUpdated;
-use Nejcc\Subscribe\Events\Unsubscribed;
-use Nejcc\Subscribe\Facades\Subscribe;
-use Nejcc\Subscribe\Mail\ConfirmSubscription;
-use Nejcc\Subscribe\Models\Subscriber;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\Events\ConfirmationEmailSent;
+use LaravelPlus\Subscribe\Events\SubscriberUpdated;
+use LaravelPlus\Subscribe\Events\Unsubscribed;
+use LaravelPlus\Subscribe\Facades\Subscribe;
+use LaravelPlus\Subscribe\Mail\ConfirmSubscription;
+use LaravelPlus\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 final class SubscriberController extends Controller
@@ -97,7 +97,7 @@ final class SubscriberController extends Controller
         event(new SubscriberUpdated($subscriber));
 
         if (config('subscribe.sync.enabled', true)) {
-            $dto = \Nejcc\Subscribe\DTOs\Subscriber::fromArray([
+            $dto = \LaravelPlus\Subscribe\DTOs\Subscriber::fromArray([
                 'email' => $subscriber->email,
                 'first_name' => $subscriber->first_name,
                 'last_name' => $subscriber->last_name,

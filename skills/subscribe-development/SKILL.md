@@ -1,15 +1,15 @@
 ---
 name: subscribe-development
 description: >-
-  Activate when working with the nejcc/subscribe package — using the Subscribe
+  Activate when working with the laravelplus/subscribe package — using the Subscribe
   facade, managing subscribers, subscription lists, email providers, double
   opt-in flows, or building admin pages under admin/subscribers.
 ---
 
 # Subscribe Development
 
-Package: `nejcc/subscribe` — Location: `packages/nejcc/subscribe/`
-Namespace: `Nejcc\Subscribe` — Facade: `Subscribe` — Config: `subscribe`
+Package: `laravelplus/subscribe` — Location: `packages/laravelplus/subscribe/`
+Namespace: `LaravelPlus\Subscribe` — Facade: `Subscribe` — Config: `subscribe`
 
 ## When to Apply
 
@@ -25,7 +25,7 @@ Namespace: `Nejcc\Subscribe` — Facade: `Subscribe` — Config: `subscribe`
 Uses Laravel's `Manager` class via `SubscribeManager`:
 
 <code-snippet name="Subscribe Facade Usage" lang="php">
-use Nejcc\Subscribe\Facades\Subscribe;
+use LaravelPlus\Subscribe\Facades\Subscribe;
 
 // Default provider (from config)
 Subscribe::subscribe($subscriberDto);

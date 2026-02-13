@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Http\Controllers\Admin;
+namespace LaravelPlus\Subscribe\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
-use Nejcc\Subscribe\Models\Subscriber;
-use Nejcc\Subscribe\Models\SubscriptionList;
+use LaravelPlus\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\SubscriptionList;
 
 final class DashboardController extends Controller
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nejcc\Subscribe\Mail;
+namespace LaravelPlus\Subscribe\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Nejcc\Subscribe\Models\Subscriber;
+use LaravelPlus\Subscribe\Models\Subscriber;
 
 final class ConfirmSubscription extends Mailable implements ShouldQueue
 {
