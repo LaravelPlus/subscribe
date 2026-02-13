@@ -1,5 +1,5 @@
 {
-    "name": "nejcc/subscribe",
+    "name": "laravelplus/subscribe",
     "description": "Email subscription and newsletter management with multi-provider support (Brevo, Mailchimp, HubSpot, ConvertKit)",
     "type": "library",
     "license": "MIT",
