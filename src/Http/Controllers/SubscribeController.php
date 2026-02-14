@@ -87,7 +87,7 @@ final class SubscribeController extends Controller
 
     public function confirm(string $token): RedirectResponse
     {
-        $subscriber = Subscriber::where('confirmation_token', $token)->first();
+        $subscriber = Subscriber::with('lists')->where('confirmation_token', $token)->first();
 
         if (!$subscriber) {
             return redirect(config('subscribe.redirects.invalid_token', '/'))
