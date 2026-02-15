@@ -19,24 +19,18 @@ final class MailchimpProvider extends AbstractProvider
 
     public function subscribe(Subscriber $subscriber, ?string $listId = null): SyncResult
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
-        $subscriberHash = md5(mb_strtolower($subscriber->email));
+        $subscriberHash = $this->getSubscriberHash($subscriber->email);
 
         $payload = [
             'email_address' => $subscriber->email,
             'status' => $subscriber->status === 'pending' ? 'pending' : 'subscribed',
-            'merge_fields' => array_filter([
-                'FNAME' => $subscriber->firstName,
-                'LNAME' => $subscriber->lastName,
-                'PHONE' => $subscriber->phone,
-                'COMPANY' => $subscriber->company,
-                ...$subscriber->attributes,
-            ]),
+            'merge_fields' => $this->buildMergeFields($subscriber),
         ];
 
         if ($subscriber->tags) {
@@ -65,13 +59,13 @@ final class MailchimpProvider extends AbstractProvider
 
     public function unsubscribe(string $email, ?string $listId = null): SyncResult
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
-        $subscriberHash = md5(mb_strtolower($email));
+        $subscriberHash = $this->getSubscriberHash($email);
 
         $response = $this->makeRequest(
             'patch',
@@ -91,22 +85,16 @@ final class MailchimpProvider extends AbstractProvider
 
     public function update(Subscriber $subscriber, ?string $listId = null): SyncResult
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
-        $subscriberHash = md5(mb_strtolower($subscriber->email));
+        $subscriberHash = $this->getSubscriberHash($subscriber->email);
 
         $payload = [
-            'merge_fields' => array_filter([
-                'FNAME' => $subscriber->firstName,
-                'LNAME' => $subscriber->lastName,
-                'PHONE' => $subscriber->phone,
-                'COMPANY' => $subscriber->company,
-                ...$subscriber->attributes,
-            ]),
+            'merge_fields' => $this->buildMergeFields($subscriber),
         ];
 
         $response = $this->makeRequest(
@@ -127,13 +115,13 @@ final class MailchimpProvider extends AbstractProvider
 
     public function isSubscribed(string $email, ?string $listId = null): bool
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return false;
         }
 
-        $subscriberHash = md5(mb_strtolower($email));
+        $subscriberHash = $this->getSubscriberHash($email);
 
         $response = $this->makeRequest(
             'get',
@@ -149,13 +137,13 @@ final class MailchimpProvider extends AbstractProvider
 
     public function getSubscriber(string $email, ?string $listId = null): ?Subscriber
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return null;
         }
 
-        $subscriberHash = md5(mb_strtolower($email));
+        $subscriberHash = $this->getSubscriberHash($email);
 
         $response = $this->makeRequest(
             'get',
@@ -244,13 +232,13 @@ final class MailchimpProvider extends AbstractProvider
 
     public function addTags(string $email, array $tags, ?string $listId = null): SyncResult
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
-        $subscriberHash = md5(mb_strtolower($email));
+        $subscriberHash = $this->getSubscriberHash($email);
 
         $payload = [
             'tags' => array_map(fn ($tag) => ['name' => $tag, 'status' => 'active'], $tags),
@@ -274,13 +262,13 @@ final class MailchimpProvider extends AbstractProvider
 
     public function removeTags(string $email, array $tags, ?string $listId = null): SyncResult
     {
-        $listId = $listId ?? $this->getDefaultListId();
+        $listId = $this->resolveListId($listId);
 
         if (!$listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
-        $subscriberHash = md5(mb_strtolower($email));
+        $subscriberHash = $this->getSubscriberHash($email);
 
         $payload = [
             'tags' => array_map(fn ($tag) => ['name' => $tag, 'status' => 'inactive'], $tags),
@@ -314,5 +302,29 @@ final class MailchimpProvider extends AbstractProvider
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
+    }
+
+    /**
+     * Get the MD5 subscriber hash for the Mailchimp API.
+     */
+    private function getSubscriberHash(string $email): string
+    {
+        return md5(mb_strtolower($email));
+    }
+
+    /**
+     * Build merge fields array from a subscriber.
+     *
+     * @return array<string, mixed>
+     */
+    private function buildMergeFields(Subscriber $subscriber): array
+    {
+        return array_filter([
+            'FNAME' => $subscriber->firstName,
+            'LNAME' => $subscriber->lastName,
+            'PHONE' => $subscriber->phone,
+            'COMPANY' => $subscriber->company,
+            ...$subscriber->attributes,
+        ]);
     }
 }

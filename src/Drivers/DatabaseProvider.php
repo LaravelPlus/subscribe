@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Drivers;
 
+use Illuminate\Support\Str;
 use LaravelPlus\Subscribe\DTOs\Subscriber;
 use LaravelPlus\Subscribe\DTOs\SubscriberList;
 use LaravelPlus\Subscribe\DTOs\SyncResult;
@@ -135,6 +136,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $model = SubscriptionList::create([
             'name' => $list->name,
+            'slug' => Str::slug($list->name),
             'description' => $list->description,
             'is_public' => $list->isPublic,
             'double_opt_in' => $list->doubleOptIn,

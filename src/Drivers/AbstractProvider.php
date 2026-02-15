@@ -50,6 +50,14 @@ abstract class AbstractProvider implements SubscribeProviderContract
         return $this->config['default_list_id'] ?? null;
     }
 
+    /**
+     * Resolve a list ID, falling back to the default.
+     */
+    protected function resolveListId(?string $listId): ?string
+    {
+        return $listId ?? $this->getDefaultListId();
+    }
+
     protected function makeRequest(string $method, string $url, array $options = []): array
     {
         $response = Http::withHeaders($this->getHeaders())
