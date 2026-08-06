@@ -212,6 +212,11 @@ return [
     'admin' => [
         'enabled' => env('SUBSCRIBE_ADMIN_ENABLED', true),
         'prefix' => env('SUBSCRIBE_ADMIN_PREFIX', 'admin/subscribers'),
-        'middleware' => ['web', 'auth'],
+        // 'auth' alone only proves someone is logged in — it does not make them
+        // an admin. Without the role check any authenticated user could list,
+        // export and delete every subscriber. routes/admin.php passes this same
+        // list as its own fallback default, but the fallback never fires because
+        // this key always exists, so the guard has to live here.
+        'middleware' => ['web', 'auth', 'role:super-admin,admin'],
     ],
 ];
