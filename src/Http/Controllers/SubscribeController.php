@@ -28,8 +28,9 @@ final class SubscribeController extends Controller
     {
         $validated = $request->validated();
 
+        // list_id is the list's public uuid — the numeric key never leaves the app.
         $list = $validated['list_id']
-            ? SubscriptionList::find($validated['list_id'])
+            ? SubscriptionList::where('uuid', $validated['list_id'])->first()
             : SubscriptionList::getDefault();
 
         $requiresConfirmation = $list?->requiresDoubleOptIn()

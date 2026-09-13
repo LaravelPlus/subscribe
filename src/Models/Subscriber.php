@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Models;
 
+use LaravelPlus\Subscribe\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,7 +12,7 @@ use LaravelPlus\Subscribe\Database\Factories\SubscriberFactory;
 
 final class Subscriber extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     protected static function newFactory(): SubscriberFactory
     {

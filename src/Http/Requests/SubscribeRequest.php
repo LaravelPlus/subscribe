@@ -22,7 +22,7 @@ final class SubscribeRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'first_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
-            'list_id' => ['nullable', 'exists:subscription_lists,id'],
+            'list_id' => ['nullable', 'uuid', 'exists:subscription_lists,uuid'],
         ];
     }
 }

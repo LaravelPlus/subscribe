@@ -122,7 +122,7 @@ final class DatabaseProvider extends AbstractProvider
         return SubscriptionList::withCount('subscribers')
             ->get()
             ->map(fn ($list) => SubscriberList::fromArray([
-                'id' => (string) $list->id,
+                'id' => (string) $list->uuid,
                 'name' => $list->name,
                 'description' => $list->description,
                 'subscriber_count' => $list->subscribers_count,
