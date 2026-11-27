@@ -164,12 +164,16 @@ return [
     | Rate Limiting
     |--------------------------------------------------------------------------
     |
-    | Rate limit subscription attempts to prevent abuse.
+    | Rate limit subscription attempts to prevent abuse. max_attempts caps
+    | subscribe requests per client IP (over it: 429). max_confirmations caps
+    | confirmation mails per address; over it the mail is skipped silently.
+    | Both use the same decay window.
     |
     */
     'rate_limit' => [
         'enabled' => true,
         'max_attempts' => 5,
+        'max_confirmations' => 3,
         'decay_minutes' => 60,
     ],
 

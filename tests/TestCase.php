@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Tests;
 
-use Tests\TestCase as BaseTestCase;
+use LaravelPlus\Subscribe\SubscribeServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected function setUp(): void
+    protected function getPackageProviders($app): array
     {
-        parent::setUp();
+        return [SubscribeServiceProvider::class];
+    }
 
-        $this->app['config']->set('subscribe.default', 'database');
+    protected function defineEnvironment($app): void
+    {
+        $app['config']->set('app.key', 'base64:'.base64_encode(str_repeat('k', 32)));
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('subscribe.default', 'database');
+        $app->afterResolving('migrator', fn ($migrator) => $migrator->path(__DIR__.'/database/migrations'));
     }
 }
