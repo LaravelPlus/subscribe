@@ -151,6 +151,16 @@ final class SubscriberController extends Controller
         return back()->with('success', 'Confirmation email sent successfully.');
     }
 
+    /**
+     * Prefix cells a spreadsheet would read as a formula (OWASP CSV injection).
+     */
+    private static function csvCell(?string $value): ?string
+    {
+        return $value !== null && $value !== '' && str_contains("=+-@\t\r", $value[0])
+            ? "'".$value
+            : $value;
+    }
+
     public function export(Request $request): StreamedResponse
     {
         $query = Subscriber::query();
@@ -184,7 +194,7 @@ final class SubscriberController extends Controller
 
             $query->with('lists')->chunk(1000, function ($subscribers) use ($handle): void {
                 foreach ($subscribers as $subscriber) {
-                    fputcsv($handle, [
+                    fputcsv($handle, array_map(self::csvCell(...), [
                         $subscriber->email,
                         $subscriber->first_name,
                         $subscriber->last_name,
@@ -196,7 +206,7 @@ final class SubscriberController extends Controller
                         $subscriber->source,
                         $subscriber->created_at?->toDateTimeString(),
                         $subscriber->confirmed_at?->toDateTimeString(),
-                    ]);
+                    ]));
                 }
             });
 

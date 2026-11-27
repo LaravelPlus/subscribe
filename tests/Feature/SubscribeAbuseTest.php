@@ -118,4 +118,45 @@ final class SubscribeAbuseTest extends TestCase
         $this->get('/subscribe/confirm/'.$subscriber->confirmation_token)->assertRedirect();
         $this->assertSame('subscribed', $subscriber->fresh()->status);
     }
+
+    #[Test]
+    public function confirmation_link_expires_after_the_configured_hours(): void
+    {
+        $subscriber = Subscriber::factory()->pending()->create(['email' => 'late@example.com']);
+        $token = $subscriber->confirmation_token;
+
+        $this->travel(49)->hours();
+
+        $this->get('/subscribe/confirm/'.$token)->assertRedirect();
+        $this->assertSame('pending', $subscriber->fresh()->status);
+    }
+
+    #[Test]
+    public function resubscribing_with_an_expired_token_mails_a_fresh_one(): void
+    {
+        $subscriber = Subscriber::factory()->pending()->create(['email' => 'late@example.com']);
+        $oldToken = $subscriber->confirmation_token;
+
+        $this->travel(49)->hours();
+        $this->subscribeFrom(['email' => 'late@example.com'])->assertOk();
+
+        $newToken = $subscriber->fresh()->confirmation_token;
+        $this->assertNotSame($oldToken, $newToken);
+
+        $this->get('/subscribe/confirm/'.$newToken)->assertRedirect();
+        $this->assertSame('subscribed', $subscriber->fresh()->status);
+    }
+
+    #[Test]
+    public function referer_is_capped_to_the_source_column(): void
+    {
+        // The database driver's sync rewrites source; keep this about the controller.
+        config(['subscribe.sync.enabled' => false]);
+
+        $this->withHeader('Referer', 'https://example.com/'.str_repeat('a', 500))
+            ->subscribeFrom(['email' => 'ref@example.com'])
+            ->assertOk();
+
+        $this->assertSame(255, mb_strlen(Subscriber::where('email', 'ref@example.com')->value('source')));
+    }
 }

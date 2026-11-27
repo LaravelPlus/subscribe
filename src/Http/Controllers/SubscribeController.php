@@ -57,7 +57,7 @@ final class SubscribeController extends Controller
             [
                 'first_name' => $validated['first_name'] ?? null,
                 'last_name' => $validated['last_name'] ?? null,
-                'source' => $request->header('Referer') ?? 'direct',
+                'source' => mb_substr($request->header('Referer') ?? 'direct', 0, 255),
                 'ip_address' => $request->ip(),
                 'status' => $requiresConfirmation ? 'pending' : 'subscribed',
                 'confirmation_token' => $requiresConfirmation ? Str::random(64) : null,
@@ -71,7 +71,7 @@ final class SubscribeController extends Controller
             // Pending, or unsubscribed and asking back in: only a mailed link
             // may change the status, so the row stays as it is apart from a
             // token for that link.
-            if (!$subscriber->confirmation_token) {
+            if (!$subscriber->confirmation_token || $subscriber->confirmationTokenExpired()) {
                 $subscriber->forceFill(['confirmation_token' => Str::random(64)])->save();
             }
 
@@ -148,7 +148,7 @@ final class SubscribeController extends Controller
     {
         $subscriber = Subscriber::with('lists')->where('confirmation_token', $token)->first();
 
-        if (!$subscriber) {
+        if (!$subscriber || $subscriber->confirmationTokenExpired()) {
             return redirect(config('subscribe.redirects.invalid_token', '/'))
                 ->with('error', __('Invalid or expired confirmation link.'));
         }
@@ -178,7 +178,7 @@ final class SubscribeController extends Controller
     {
         $subscriber = Subscriber::where('email', base64_decode($token))->first();
 
-        if (!$subscriber) {
+        if (!$subscriber || $subscriber->confirmationTokenExpired()) {
             return redirect(config('subscribe.redirects.invalid_token', '/'))
                 ->with('error', __('Subscriber not found.'));
         }
