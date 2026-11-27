@@ -85,8 +85,8 @@ does not send it; listen for `SubscriptionConfirmed` to send one.
 | Event | When |
 |---|---|
 | `Subscribed` | a new subscriber is created and no confirmation is required |
-| `ConfirmationEmailSent` | a confirmation mail is queued (new subscriber with double opt-in) |
-| `SubscriptionConfirmed` | the confirmation link is used, or an admin confirms |
+| `ConfirmationEmailSent` | a confirmation mail is queued (new subscriber with double opt-in, or an admin resend) |
+| `SubscriptionConfirmed` | the confirmation link is used |
 | `SubscriberUpdated` | a subscriber's details change |
 | `Unsubscribed` | a subscriber unsubscribes |
 
