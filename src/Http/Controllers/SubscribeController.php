@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Http\Controllers;
 
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -33,7 +33,7 @@ final class SubscribeController extends Controller
         $decay = (int) config('subscribe.rate_limit.decay_minutes', 60) * 60;
 
         if ($limited && RateLimiter::tooManyAttempts($clientKey, (int) config('subscribe.rate_limit.max_attempts', 5))) {
-            throw new ThrottleRequestsException();
+            throw new ThrottleRequestsException;
         }
 
         if ($limited) {
@@ -70,7 +70,7 @@ final class SubscribeController extends Controller
             // Pending, or unsubscribed and asking back in: only a mailed link
             // may change the status, so the row stays as it is apart from a
             // token for that link.
-            if (!$subscriber->confirmation_token || $subscriber->confirmationTokenExpired()) {
+            if (! $subscriber->confirmation_token || $subscriber->confirmationTokenExpired()) {
                 $subscriber->forceFill(['confirmation_token' => Str::random(64)])->save();
             }
 
@@ -140,7 +140,7 @@ final class SubscribeController extends Controller
     {
         $subscriber = Subscriber::with('lists')->where('confirmation_token', $token)->first();
 
-        if (!$subscriber || $subscriber->confirmationTokenExpired()) {
+        if (! $subscriber || $subscriber->confirmationTokenExpired()) {
             return redirect(config('subscribe.redirects.invalid_token', '/'))
                 ->with('error', __('Invalid or expired confirmation link.'));
         }
@@ -165,7 +165,7 @@ final class SubscribeController extends Controller
     {
         $subscriber = Subscriber::where('email', base64_decode($token))->first();
 
-        if (!$subscriber || $subscriber->confirmationTokenExpired()) {
+        if (! $subscriber || $subscriber->confirmationTokenExpired()) {
             return redirect(config('subscribe.redirects.invalid_token', '/'))
                 ->with('error', __('Subscriber not found.'));
         }

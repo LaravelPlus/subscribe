@@ -50,7 +50,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $subscriberId = $this->getSubscriberId($email);
 
-        if (!$subscriberId) {
+        if (! $subscriberId) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -81,7 +81,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $subscriberId = $this->getSubscriberId($subscriber->email);
 
-        if (!$subscriberId) {
+        if (! $subscriberId) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -111,7 +111,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $subscriber = $this->getSubscriberData($email);
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return false;
         }
 
@@ -132,7 +132,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $subscriber = $this->getSubscriberData($email);
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return null;
         }
 
@@ -156,7 +156,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/groups", ['limit' => 100]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return [];
         }
 
@@ -215,7 +215,7 @@ final class MailerLiteProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/subscribers/{$email}");
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return null;
         }
 

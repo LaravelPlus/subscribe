@@ -7,6 +7,7 @@ namespace LaravelPlus\Subscribe;
 use App\Support\AdminNavigation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use LaravelPlus\GlobalSettings\Models\Setting;
 
 final class SubscribeServiceProvider extends ServiceProvider
 {
@@ -64,9 +65,9 @@ final class SubscribeServiceProvider extends ServiceProvider
      */
     private function isAdminEnabled(): bool
     {
-        if (class_exists(\LaravelPlus\GlobalSettings\Models\Setting::class)) {
+        if (class_exists(Setting::class)) {
             try {
-                $dbValue = \LaravelPlus\GlobalSettings\Models\Setting::get('package.subscribers.enabled');
+                $dbValue = Setting::get('package.subscribers.enabled');
 
                 if ($dbValue !== null) {
                     return in_array($dbValue, ['1', 'true', true, 1], true);

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use LaravelPlus\Subscribe\Http\Middleware\AuthorizeAdmin;
 
 return [
     /*
@@ -221,6 +222,6 @@ return [
         // 404 when it refuses. The package's default gate allows users with a
         // super-admin/admin role (spatie/laravel-permission's hasAnyRole) and
         // denies everyone on hosts without it; define the gate to decide.
-        'middleware' => ['web', 'auth', \LaravelPlus\Subscribe\Http\Middleware\AuthorizeAdmin::class],
+        'middleware' => ['web', 'auth', AuthorizeAdmin::class],
     ],
 ];

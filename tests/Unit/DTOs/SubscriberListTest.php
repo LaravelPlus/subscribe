@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SubscriberListTest extends TestCase
 {
     #[Test]
-    public function testFromArrayCreatesSubscriberList(): void
+    public function test_from_array_creates_subscriber_list(): void
     {
         $data = [
             'id' => 'list-1',
@@ -35,7 +35,7 @@ final class SubscriberListTest extends TestCase
     }
 
     #[Test]
-    public function testToArrayReturnsCorrectStructure(): void
+    public function test_to_array_returns_correct_structure(): void
     {
         $list = new SubscriberList(
             name: 'Updates',
@@ -59,7 +59,7 @@ final class SubscriberListTest extends TestCase
     }
 
     #[Test]
-    public function testDefaultValues(): void
+    public function test_default_values(): void
     {
         $list = new SubscriberList(name: 'Default List');
 
@@ -72,7 +72,7 @@ final class SubscriberListTest extends TestCase
     }
 
     #[Test]
-    public function testFromArrayWithMinimalData(): void
+    public function test_from_array_with_minimal_data(): void
     {
         $list = SubscriberList::fromArray(['name' => 'Minimal List']);
 

@@ -16,7 +16,7 @@ final class ConvertKitProvider extends AbstractProvider
     {
         $formId = $listId ?? $this->getDefaultListId();
 
-        if (!$formId) {
+        if (! $formId) {
             return SyncResult::failure('Form ID is required for ConvertKit');
         }
 
@@ -75,7 +75,7 @@ final class ConvertKitProvider extends AbstractProvider
     {
         $subscriberId = $this->getSubscriberId($subscriber->email);
 
-        if (!$subscriberId) {
+        if (! $subscriberId) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -106,7 +106,7 @@ final class ConvertKitProvider extends AbstractProvider
     {
         $subscriber = $this->getSubscriberByEmail($email);
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return false;
         }
 
@@ -117,7 +117,7 @@ final class ConvertKitProvider extends AbstractProvider
     {
         $subscriber = $this->getSubscriberByEmail($email);
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return null;
         }
 
@@ -141,7 +141,7 @@ final class ConvertKitProvider extends AbstractProvider
             'api_key' => $this->config['api_key'],
         ]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return [];
         }
 
@@ -168,7 +168,7 @@ final class ConvertKitProvider extends AbstractProvider
         foreach ($tags as $tag) {
             $tagId = $this->getOrCreateTag($tag);
 
-            if (!$tagId) {
+            if (! $tagId) {
                 $errors[] = "Failed to find or create tag: {$tag}";
 
                 continue;
@@ -181,7 +181,7 @@ final class ConvertKitProvider extends AbstractProvider
 
             $response = $this->makeRequest('post', "{$this->baseUrl}/tags/{$tagId}/subscribe", $payload);
 
-            if (!$response['success']) {
+            if (! $response['success']) {
                 $errors[] = "Failed to add tag: {$tag}";
             }
         }
@@ -197,7 +197,7 @@ final class ConvertKitProvider extends AbstractProvider
     {
         $subscriberId = $this->getSubscriberId($email);
 
-        if (!$subscriberId) {
+        if (! $subscriberId) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -206,7 +206,7 @@ final class ConvertKitProvider extends AbstractProvider
         foreach ($tags as $tag) {
             $tagId = $this->getTagId($tag);
 
-            if (!$tagId) {
+            if (! $tagId) {
                 continue;
             }
 
@@ -216,7 +216,7 @@ final class ConvertKitProvider extends AbstractProvider
                 ['api_secret' => $this->config['api_secret']]
             );
 
-            if (!$response['success'] && $response['status'] !== 404) {
+            if (! $response['success'] && $response['status'] !== 404) {
                 $errors[] = "Failed to remove tag: {$tag}";
             }
         }
@@ -253,7 +253,7 @@ final class ConvertKitProvider extends AbstractProvider
             'email_address' => $email,
         ]);
 
-        if (!$response['success'] || empty($response['body']['subscribers'])) {
+        if (! $response['success'] || empty($response['body']['subscribers'])) {
             return null;
         }
 
@@ -273,7 +273,7 @@ final class ConvertKitProvider extends AbstractProvider
             'api_key' => $this->config['api_key'],
         ]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return null;
         }
 

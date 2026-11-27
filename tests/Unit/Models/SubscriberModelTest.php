@@ -15,7 +15,7 @@ final class SubscriberModelTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function testScopeSubscribed(): void
+    public function test_scope_subscribed(): void
     {
         Subscriber::factory()->subscribed()->create();
         Subscriber::factory()->pending()->create();
@@ -27,7 +27,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testScopePending(): void
+    public function test_scope_pending(): void
     {
         Subscriber::factory()->subscribed()->create();
         Subscriber::factory()->pending()->create();
@@ -39,7 +39,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testScopeInList(): void
+    public function test_scope_in_list(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create();
         $list = SubscriptionList::factory()->create();
@@ -54,7 +54,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testScopeWithTag(): void
+    public function test_scope_with_tag(): void
     {
         Subscriber::factory()->subscribed()->create(['tags' => ['newsletter']]);
         Subscriber::factory()->subscribed()->create(['tags' => ['promotions']]);
@@ -66,7 +66,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testConfirmMethod(): void
+    public function test_confirm_method(): void
     {
         $subscriber = Subscriber::factory()->pending()->create();
 
@@ -83,7 +83,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testUnsubscribeMethod(): void
+    public function test_unsubscribe_method(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create();
 
@@ -94,7 +94,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testAddTag(): void
+    public function test_add_tag(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create(['tags' => []]);
 
@@ -105,7 +105,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testAddTagDoesNotDuplicate(): void
+    public function test_add_tag_does_not_duplicate(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create(['tags' => ['existing']]);
 
@@ -118,7 +118,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testRemoveTag(): void
+    public function test_remove_tag(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create(['tags' => ['a', 'b']]);
 
@@ -130,7 +130,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testHasTag(): void
+    public function test_has_tag(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create(['tags' => ['test']]);
 
@@ -139,7 +139,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testIsSubscribed(): void
+    public function test_is_subscribed(): void
     {
         $subscribed = Subscriber::factory()->subscribed()->create();
         $pending = Subscriber::factory()->pending()->create();
@@ -149,7 +149,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testGetFullNameAttribute(): void
+    public function test_get_full_name_attribute(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create([
             'first_name' => 'John',
@@ -167,7 +167,7 @@ final class SubscriberModelTest extends TestCase
     }
 
     #[Test]
-    public function testListsRelationship(): void
+    public function test_lists_relationship(): void
     {
         $subscriber = Subscriber::factory()->subscribed()->create();
         $list = SubscriptionList::factory()->create();

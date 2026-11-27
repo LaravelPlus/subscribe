@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 // Test-only: the uuid columns used by HasUuid are added by the host app's own
 // migration, so the standalone suite adds them here.
-return new class() extends Migration
+return new class extends Migration
 {
     public function up(): void
     {

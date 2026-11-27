@@ -48,7 +48,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $subscriber = SubscriberModel::where('email', $email)->first();
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -65,7 +65,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $model = SubscriberModel::where('email', $subscriber->email)->first();
 
-        if (!$model) {
+        if (! $model) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -97,7 +97,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $model = SubscriberModel::where('email', $email)->first();
 
-        if (!$model) {
+        if (! $model) {
             return null;
         }
 
@@ -152,7 +152,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $subscriber = SubscriberModel::where('email', $email)->first();
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return SyncResult::failure('Subscriber not found');
         }
 
@@ -166,7 +166,7 @@ final class DatabaseProvider extends AbstractProvider
     {
         $subscriber = SubscriberModel::where('email', $email)->first();
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return SyncResult::failure('Subscriber not found');
         }
 

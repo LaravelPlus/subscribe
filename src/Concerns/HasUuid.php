@@ -23,7 +23,7 @@ trait HasUuid
 
     public function initializeHasUuid(): void
     {
-        if (!in_array('id', $this->hidden, true)) {
+        if (! in_array('id', $this->hidden, true)) {
             $this->hidden[] = 'id';
         }
     }
