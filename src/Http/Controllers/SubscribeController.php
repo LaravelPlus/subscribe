@@ -57,7 +57,7 @@ final class SubscribeController extends Controller
             [
                 'first_name' => $validated['first_name'] ?? null,
                 'last_name' => $validated['last_name'] ?? null,
-                'source' => $request->header('Referer') ?? 'direct',
+                'source' => mb_substr($request->header('Referer') ?? 'direct', 0, 255),
                 'ip_address' => $request->ip(),
                 'status' => $requiresConfirmation ? 'pending' : 'subscribed',
                 'confirmation_token' => $requiresConfirmation ? Str::random(64) : null,
