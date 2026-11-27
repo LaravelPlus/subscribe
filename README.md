@@ -32,8 +32,9 @@ BREVO_DEFAULT_LIST_ID=
 
 Every provider entry lives under `providers` in `config/subscribe.php`
 (`MAILCHIMP_*`, `HUBSPOT_*`, `CONVERTKIT_*`, `MAILERLITE_*`). Subscribers are always kept
-in the local `subscribers` table; with `sync.enabled` they are pushed to the provider too,
-queued when `sync.queue` is on.
+in the local `subscribers` table; with `sync.enabled` they are pushed to the provider too.
+That push runs synchronously inside the request (the `sync.queue` setting is not wired up
+yet), so a slow or failing provider shows up in the subscribe response.
 
 Use a provider directly through the facade:
 
@@ -76,15 +77,16 @@ Gate::define('subscribe.admin', fn (User $user): bool => $user->is_admin);
 
 New subscribers start as `pending` and receive a confirmation mail
 (`confirmation.*`: sender, subject, `expire_hours`). Only the link in that mail confirms
-them; an expired token is refused. A welcome mail follows when `welcome_email.enabled`.
+them; an expired token is refused. The package ships a `WelcomeSubscriber` mailable but
+does not send it; listen for `SubscriptionConfirmed` to send one.
 
 ## Events
 
 | Event | When |
 |---|---|
-| `Subscribed` | a subscriber is created or re-subscribes |
-| `ConfirmationEmailSent` | a confirmation mail is sent |
-| `SubscriptionConfirmed` | the confirmation link is used |
+| `Subscribed` | a new subscriber is created and no confirmation is required |
+| `ConfirmationEmailSent` | a confirmation mail is queued (new subscriber with double opt-in) |
+| `SubscriptionConfirmed` | the confirmation link is used, or an admin confirms |
 | `SubscriberUpdated` | a subscriber's details change |
 | `Unsubscribed` | a subscriber unsubscribes |
 
