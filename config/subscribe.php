@@ -217,10 +217,10 @@ return [
         'enabled' => env('SUBSCRIBE_ADMIN_ENABLED', true),
         'prefix' => env('SUBSCRIBE_ADMIN_PREFIX', 'admin/subscribers'),
         // 'auth' alone only proves someone is logged in — it does not make them
-        // an admin. Without the role check any authenticated user could list,
-        // export and delete every subscriber. routes/admin.php passes this same
-        // list as its own fallback default, but the fallback never fires because
-        // this key always exists, so the guard has to live here.
-        'middleware' => ['web', 'auth', 'role:super-admin,admin'],
+        // an admin. AuthorizeAdmin checks the `subscribe.admin` gate and answers
+        // 404 when it refuses. The package's default gate allows users with a
+        // super-admin/admin role (spatie/laravel-permission's hasAnyRole) and
+        // denies everyone on hosts without it; define the gate to decide.
+        'middleware' => ['web', 'auth', \LaravelPlus\Subscribe\Http\Middleware\AuthorizeAdmin::class],
     ],
 ];
