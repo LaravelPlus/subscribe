@@ -130,6 +130,20 @@ final class Subscriber extends Model
         return $this->confirmed_at !== null;
     }
 
+    /**
+     * Whether the confirmation token is older than confirmation.expire_hours.
+     *
+     * The token is written together with the row, so updated_at marks when it
+     * was issued. Any later update of a pending row restarts the window; add a
+     * confirmation_sent_at column if that ever matters.
+     */
+    public function confirmationTokenExpired(): bool
+    {
+        $hours = (int) config('subscribe.confirmation.expire_hours', 48);
+
+        return $this->updated_at === null || $this->updated_at->lt(now()->subHours($hours));
+    }
+
     public function confirm(): void
     {
         $this->update([
