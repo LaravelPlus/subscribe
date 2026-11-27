@@ -12,7 +12,6 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use LaravelPlus\Subscribe\DTOs\Subscriber as SubscriberDTO;
 use LaravelPlus\Subscribe\Events\ConfirmationEmailSent;
 use LaravelPlus\Subscribe\Events\Subscribed;
 use LaravelPlus\Subscribe\Events\SubscriptionConfirmed;
@@ -106,14 +105,7 @@ final class SubscribeController extends Controller
         }
 
         if (config('subscribe.sync.enabled', true)) {
-            $dto = SubscriberDTO::fromArray([
-                'email' => $subscriber->email,
-                'first_name' => $subscriber->first_name,
-                'last_name' => $subscriber->last_name,
-                'status' => $subscriber->status,
-            ]);
-
-            Subscribe::subscribe($dto, $list?->provider_id);
+            Subscribe::subscribe($subscriber->toDto(), $list?->provider_id);
         }
 
         if ($requiresConfirmation) {
@@ -158,12 +150,7 @@ final class SubscribeController extends Controller
         event(new SubscriptionConfirmed($subscriber));
 
         if (config('subscribe.sync.enabled', true)) {
-            $dto = SubscriberDTO::fromArray([
-                'email' => $subscriber->email,
-                'first_name' => $subscriber->first_name,
-                'last_name' => $subscriber->last_name,
-                'status' => 'subscribed',
-            ]);
+            $dto = $subscriber->toDto();
 
             foreach ($subscriber->lists as $list) {
                 Subscribe::update($dto, $list->provider_id);

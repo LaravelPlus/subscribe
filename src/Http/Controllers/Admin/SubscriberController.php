@@ -97,17 +97,7 @@ final class SubscriberController extends Controller
         event(new SubscriberUpdated($subscriber));
 
         if (config('subscribe.sync.enabled', true)) {
-            $dto = \LaravelPlus\Subscribe\DTOs\Subscriber::fromArray([
-                'email' => $subscriber->email,
-                'first_name' => $subscriber->first_name,
-                'last_name' => $subscriber->last_name,
-                'phone' => $subscriber->phone,
-                'company' => $subscriber->company,
-                'tags' => $subscriber->tags ?? [],
-                'status' => $subscriber->status,
-            ]);
-
-            Subscribe::update($dto);
+            Subscribe::update($subscriber->toDto());
         }
 
         return back()->with('success', 'Subscriber updated successfully.');

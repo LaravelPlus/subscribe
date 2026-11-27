@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LaravelPlus\Subscribe\Models;
 
 use LaravelPlus\Subscribe\Concerns\HasUuid;
+use LaravelPlus\Subscribe\DTOs\Subscriber as SubscriberDTO;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -142,6 +143,17 @@ final class Subscriber extends Model
         $hours = (int) config('subscribe.confirmation.expire_hours', 48);
 
         return $this->updated_at === null || $this->updated_at->lt(now()->subHours($hours));
+    }
+
+    /**
+     * The full stored profile as a DTO for provider sync.
+     *
+     * Building the DTO from a subset of fields made the database driver write
+     * nulls over the rest of the row.
+     */
+    public function toDto(): SubscriberDTO
+    {
+        return SubscriberDTO::fromArray($this->attributesToArray());
     }
 
     public function confirm(): void
