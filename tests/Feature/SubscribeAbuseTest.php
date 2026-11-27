@@ -150,13 +150,46 @@ final class SubscribeAbuseTest extends TestCase
     #[Test]
     public function referer_is_capped_to_the_source_column(): void
     {
-        // The database driver's sync rewrites source; keep this about the controller.
-        config(['subscribe.sync.enabled' => false]);
-
         $this->withHeader('Referer', 'https://example.com/'.str_repeat('a', 500))
             ->subscribeFrom(['email' => 'ref@example.com'])
             ->assertOk();
 
         $this->assertSame(255, mb_strlen(Subscriber::where('email', 'ref@example.com')->value('source')));
+    }
+
+    #[Test]
+    public function database_sync_keeps_source_and_ip_of_a_new_signup(): void
+    {
+        $this->withHeader('Referer', 'https://example.com/landing')
+            ->subscribeFrom(['email' => 'kept@example.com'], '10.7.7.7')
+            ->assertOk();
+
+        $subscriber = Subscriber::where('email', 'kept@example.com')->first();
+        $this->assertSame('https://example.com/landing', $subscriber->source);
+        $this->assertSame('10.7.7.7', $subscriber->ip_address);
+    }
+
+    #[Test]
+    public function database_sync_on_confirm_keeps_the_stored_profile(): void
+    {
+        $subscriber = Subscriber::factory()->pending()->create([
+            'phone' => '+386 1 234',
+            'company' => 'Acme',
+            'tags' => ['vip'],
+            'attributes' => ['plan' => 'pro'],
+            'source' => 'landing',
+            'ip_address' => '10.1.1.1',
+        ]);
+        $subscriber->lists()->attach(SubscriptionList::factory()->create()->id);
+
+        $this->get('/subscribe/confirm/'.$subscriber->confirmation_token)->assertRedirect();
+
+        $subscriber->refresh();
+        $this->assertSame('subscribed', $subscriber->status);
+        $this->assertSame('+386 1 234', $subscriber->phone);
+        $this->assertSame('Acme', $subscriber->company);
+        $this->assertSame(['vip'], $subscriber->tags);
+        $this->assertSame(['plan' => 'pro'], $subscriber->attributes);
+        $this->assertSame('landing', $subscriber->source);
     }
 }
