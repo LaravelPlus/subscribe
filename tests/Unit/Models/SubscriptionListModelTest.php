@@ -15,7 +15,7 @@ final class SubscriptionListModelTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function testScopePublic(): void
+    public function test_scope_public(): void
     {
         SubscriptionList::factory()->public()->create();
         SubscriptionList::factory()->private()->create();
@@ -27,7 +27,7 @@ final class SubscriptionListModelTest extends TestCase
     }
 
     #[Test]
-    public function testScopeDefault(): void
+    public function test_scope_default(): void
     {
         SubscriptionList::factory()->default()->create();
         SubscriptionList::factory()->create(['is_default' => false]);
@@ -39,7 +39,7 @@ final class SubscriptionListModelTest extends TestCase
     }
 
     #[Test]
-    public function testGetDefault(): void
+    public function test_get_default(): void
     {
         $defaultList = SubscriptionList::factory()->default()->create();
         SubscriptionList::factory()->create(['is_default' => false]);
@@ -56,7 +56,7 @@ final class SubscriptionListModelTest extends TestCase
     }
 
     #[Test]
-    public function testRequiresDoubleOptIn(): void
+    public function test_requires_double_opt_in(): void
     {
         $listWithOptIn = SubscriptionList::factory()->withDoubleOptIn()->create();
 
@@ -68,7 +68,7 @@ final class SubscriptionListModelTest extends TestCase
     }
 
     #[Test]
-    public function testHasWelcomeEmail(): void
+    public function test_has_welcome_email(): void
     {
         $listWithWelcome = SubscriptionList::factory()->withWelcomeEmail()->create();
 
@@ -93,7 +93,7 @@ final class SubscriptionListModelTest extends TestCase
     }
 
     #[Test]
-    public function testActiveSubscribersRelationship(): void
+    public function test_active_subscribers_relationship(): void
     {
         $list = SubscriptionList::factory()->create();
 

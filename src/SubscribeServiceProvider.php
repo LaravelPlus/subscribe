@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace LaravelPlus\Subscribe;
 
 use App\Support\AdminNavigation;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use LaravelPlus\GlobalSettings\Models\Setting;
 
 final class SubscribeServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,13 @@ final class SubscribeServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+        // Default admin check: Spatie-style roles when the host's user model
+        // has them, deny otherwise. A host defines its own `subscribe.admin`
+        // gate (it boots after this provider) to decide differently.
+        if (! Gate::has('subscribe.admin')) {
+            Gate::define('subscribe.admin', fn ($user): bool => method_exists($user, 'hasAnyRole') && $user->hasAnyRole(['super-admin', 'admin']));
+        }
 
         if ($this->isAdminEnabled()) {
             $this->loadRoutesFrom(__DIR__.'/../routes/admin.php');
@@ -56,9 +65,9 @@ final class SubscribeServiceProvider extends ServiceProvider
      */
     private function isAdminEnabled(): bool
     {
-        if (class_exists(\LaravelPlus\GlobalSettings\Models\Setting::class)) {
+        if (class_exists(Setting::class)) {
             try {
-                $dbValue = \LaravelPlus\GlobalSettings\Models\Setting::get('package.subscribers.enabled');
+                $dbValue = Setting::get('package.subscribers.enabled');
 
                 if ($dbValue !== null) {
                     return in_array($dbValue, ['1', 'true', true, 1], true);

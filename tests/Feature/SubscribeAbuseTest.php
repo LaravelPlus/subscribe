@@ -6,6 +6,7 @@ namespace LaravelPlus\Subscribe\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Testing\TestResponse;
 use LaravelPlus\Subscribe\Mail\ConfirmSubscription;
 use LaravelPlus\Subscribe\Models\Subscriber;
 use LaravelPlus\Subscribe\Models\SubscriptionList;
@@ -26,7 +27,7 @@ final class SubscribeAbuseTest extends TestCase
     }
 
     /** Each call comes from a fresh client IP unless $ip is given. */
-    private function subscribeFrom(array $data, ?string $ip = null): \Illuminate\Testing\TestResponse
+    private function subscribeFrom(array $data, ?string $ip = null): TestResponse
     {
         return $this->withServerVariables(['REMOTE_ADDR' => $ip ?? '10.0.0.'.$this->ip++])
             ->postJson('/subscribe', $data);

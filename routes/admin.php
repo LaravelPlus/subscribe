@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use LaravelPlus\Subscribe\Http\Controllers\Admin\DashboardController;
 use LaravelPlus\Subscribe\Http\Controllers\Admin\ListController;
 use LaravelPlus\Subscribe\Http\Controllers\Admin\SubscriberController;
+use LaravelPlus\Subscribe\Http\Middleware\AuthorizeAdmin;
 
 Route::prefix(config('subscribe.admin.prefix', 'admin/subscribers'))
-    ->middleware(config('subscribe.admin.middleware', ['web', 'auth', 'role:super-admin,admin']))
+    ->middleware(config('subscribe.admin.middleware', ['web', 'auth', AuthorizeAdmin::class]))
     ->name('admin.subscribers.')
     ->group(function (): void {
         Route::get('/', [DashboardController::class, 'index'])->name('index');

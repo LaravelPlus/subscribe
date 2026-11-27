@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SubscriberTest extends TestCase
 {
     #[Test]
-    public function testFromArrayCreatesSubscriber(): void
+    public function test_from_array_creates_subscriber(): void
     {
         $data = [
             'email' => 'john@example.com',
@@ -45,7 +45,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testToArrayReturnsCorrectStructure(): void
+    public function test_to_array_returns_correct_structure(): void
     {
         $subscriber = new Subscriber(
             email: 'jane@example.com',
@@ -79,7 +79,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testGetFullNameWithBothNames(): void
+    public function test_get_full_name_with_both_names(): void
     {
         $subscriber = new Subscriber(
             email: 'john@example.com',
@@ -91,7 +91,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testGetFullNameWithOnlyFirstName(): void
+    public function test_get_full_name_with_only_first_name(): void
     {
         $subscriber = new Subscriber(
             email: 'john@example.com',
@@ -102,7 +102,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testGetFullNameReturnsNullWhenEmpty(): void
+    public function test_get_full_name_returns_null_when_empty(): void
     {
         $subscriber = new Subscriber(email: 'test@example.com');
 
@@ -110,7 +110,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testDefaultStatusIsPending(): void
+    public function test_default_status_is_pending(): void
     {
         $subscriber = new Subscriber(email: 'test@example.com');
 
@@ -118,7 +118,7 @@ final class SubscriberTest extends TestCase
     }
 
     #[Test]
-    public function testFromArrayWithMinimalData(): void
+    public function test_from_array_with_minimal_data(): void
     {
         $subscriber = Subscriber::fromArray(['email' => 'minimal@example.com']);
 

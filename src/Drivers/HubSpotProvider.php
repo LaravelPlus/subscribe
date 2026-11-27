@@ -69,7 +69,7 @@ final class HubSpotProvider extends AbstractProvider
     {
         $contactId = $this->getContactIdByEmail($email);
 
-        if (!$contactId) {
+        if (! $contactId) {
             return SyncResult::failure('Contact not found');
         }
 
@@ -101,7 +101,7 @@ final class HubSpotProvider extends AbstractProvider
     {
         $contactId = $this->getContactIdByEmail($subscriber->email);
 
-        if (!$contactId) {
+        if (! $contactId) {
             return SyncResult::failure('Contact not found');
         }
 
@@ -122,7 +122,7 @@ final class HubSpotProvider extends AbstractProvider
     {
         $contact = $this->getContactByEmail($email);
 
-        if (!$contact) {
+        if (! $contact) {
             return false;
         }
 
@@ -143,7 +143,7 @@ final class HubSpotProvider extends AbstractProvider
     {
         $contact = $this->getContactByEmail($email);
 
-        if (!$contact) {
+        if (! $contact) {
             return null;
         }
 
@@ -165,7 +165,7 @@ final class HubSpotProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/contacts/v1/lists", ['count' => 100]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return [];
         }
 
@@ -244,7 +244,7 @@ final class HubSpotProvider extends AbstractProvider
             ]
         );
 
-        if (!$response['success'] || empty($response['body']['results'])) {
+        if (! $response['success'] || empty($response['body']['results'])) {
             return null;
         }
 
@@ -277,7 +277,7 @@ final class HubSpotProvider extends AbstractProvider
             ['count' => 100]
         );
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return false;
         }
 

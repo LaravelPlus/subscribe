@@ -102,7 +102,7 @@ final class BrevoProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/contacts/{$email}");
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return false;
         }
 
@@ -123,7 +123,7 @@ final class BrevoProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/contacts/{$email}");
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return null;
         }
 
@@ -147,7 +147,7 @@ final class BrevoProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->baseUrl}/contacts/lists", ['limit' => 50]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return [];
         }
 

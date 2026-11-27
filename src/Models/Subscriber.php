@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Models;
 
-use LaravelPlus\Subscribe\Concerns\HasUuid;
-use LaravelPlus\Subscribe\DTOs\Subscriber as SubscriberDTO;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use LaravelPlus\Subscribe\Concerns\HasUuid;
 use LaravelPlus\Subscribe\Database\Factories\SubscriberFactory;
+use LaravelPlus\Subscribe\DTOs\Subscriber as SubscriberDTO;
 
 final class Subscriber extends Model
 {
@@ -59,64 +60,64 @@ final class Subscriber extends Model
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeSubscribed(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopeSubscribed(Builder $query): Builder
     {
         return $query->where('status', 'subscribed');
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeUnsubscribed(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopeUnsubscribed(Builder $query): Builder
     {
         return $query->where('status', 'unsubscribed');
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopePending(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopePending(Builder $query): Builder
     {
         return $query->where('status', 'pending');
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeConfirmed(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopeConfirmed(Builder $query): Builder
     {
         return $query->whereNotNull('confirmed_at');
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeUnconfirmed(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query->whereNull('confirmed_at');
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeInList(\Illuminate\Database\Eloquent\Builder $query, string $listId): \Illuminate\Database\Eloquent\Builder
+    public function scopeInList(Builder $query, string $listId): Builder
     {
         return $query->whereHas('lists', fn ($q) => $q->where('subscription_lists.id', $listId));
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeWithTag(\Illuminate\Database\Eloquent\Builder $query, string $tag): \Illuminate\Database\Eloquent\Builder
+    public function scopeWithTag(Builder $query, string $tag): Builder
     {
         return $query->whereJsonContains('tags', $tag);
     }
@@ -173,7 +174,7 @@ final class Subscriber extends Model
     public function addTag(string $tag): void
     {
         $tags = $this->tags ?? [];
-        if (!in_array($tag, $tags)) {
+        if (! in_array($tag, $tags)) {
             $tags[] = $tag;
             $this->update(['tags' => $tags]);
         }

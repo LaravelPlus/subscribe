@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaravelPlus\Subscribe\Http\Controllers\Admin;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -79,7 +78,7 @@ final class ListController extends Controller
     {
         $validated = $request->validated();
 
-        if (($validated['is_default'] ?? false) && !$list->is_default) {
+        if (($validated['is_default'] ?? false) && ! $list->is_default) {
             SubscriptionList::where('is_default', true)->update(['is_default' => false]);
         }
 

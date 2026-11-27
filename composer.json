@@ -10,14 +10,15 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "illuminate/support": "^11.0|^12.0|^13.0",
-        "illuminate/database": "^11.0|^12.0|^13.0",
-        "illuminate/http": "^11.0|^12.0|^13.0"
+        "php": "^8.4",
+        "illuminate/support": "^12.0|^13.0",
+        "illuminate/database": "^12.0|^13.0",
+        "illuminate/http": "^12.0|^13.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0|^10.0",
-        "phpunit/phpunit": "^11.0"
+        "laravel/pint": "^1.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "phpunit/phpunit": "^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
@@ -42,5 +43,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "suggest": {
+        "inertiajs/inertia-laravel": "Required for the admin console pages (subscribe.admin.enabled)."
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
 }

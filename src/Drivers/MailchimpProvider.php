@@ -21,7 +21,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
@@ -61,7 +61,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
@@ -87,7 +87,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
@@ -117,7 +117,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return false;
         }
 
@@ -128,7 +128,7 @@ final class MailchimpProvider extends AbstractProvider
             "{$this->getBaseUrl()}/lists/{$listId}/members/{$subscriberHash}"
         );
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return false;
         }
 
@@ -139,7 +139,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return null;
         }
 
@@ -150,7 +150,7 @@ final class MailchimpProvider extends AbstractProvider
             "{$this->getBaseUrl()}/lists/{$listId}/members/{$subscriberHash}"
         );
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return null;
         }
 
@@ -176,7 +176,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $response = $this->makeRequest('get', "{$this->getBaseUrl()}/lists", ['count' => 100]);
 
-        if (!$response['success']) {
+        if (! $response['success']) {
             return [];
         }
 
@@ -234,7 +234,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 
@@ -264,7 +264,7 @@ final class MailchimpProvider extends AbstractProvider
     {
         $listId = $this->resolveListId($listId);
 
-        if (!$listId) {
+        if (! $listId) {
             return SyncResult::failure('List ID is required for Mailchimp');
         }
 

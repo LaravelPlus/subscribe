@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace LaravelPlus\Subscribe\Models;
 
-use LaravelPlus\Subscribe\Concerns\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use LaravelPlus\Subscribe\Concerns\HasUuid;
 use LaravelPlus\Subscribe\Database\Factories\SubscriptionListFactory;
 
 final class SubscriptionList extends Model
@@ -63,19 +64,19 @@ final class SubscriptionList extends Model
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopePublic(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopePublic(Builder $query): Builder
     {
         return $query->where('is_public', true);
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder<static>  $query
-     * @return \Illuminate\Database\Eloquent\Builder<static>
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
-    public function scopeDefault(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    public function scopeDefault(Builder $query): Builder
     {
         return $query->where('is_default', true);
     }

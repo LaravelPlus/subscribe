@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SyncResultTest extends TestCase
 {
     #[Test]
-    public function testSuccessCreatesSuccessfulResult(): void
+    public function test_success_creates_successful_result(): void
     {
         $result = SyncResult::success('ok', 'id-123');
 
@@ -23,7 +23,7 @@ final class SyncResultTest extends TestCase
     }
 
     #[Test]
-    public function testFailureCreatesFailedResult(): void
+    public function test_failure_creates_failed_result(): void
     {
         $result = SyncResult::failure('error', '400');
 
@@ -35,7 +35,7 @@ final class SyncResultTest extends TestCase
     }
 
     #[Test]
-    public function testToArrayReturnsCorrectStructure(): void
+    public function test_to_array_returns_correct_structure(): void
     {
         $result = SyncResult::success('synced', 'prov-1', ['extra' => 'info']);
 
@@ -55,7 +55,7 @@ final class SyncResultTest extends TestCase
     }
 
     #[Test]
-    public function testSuccessWithData(): void
+    public function test_success_with_data(): void
     {
         $result = SyncResult::success(data: ['key' => 'value']);
 
@@ -66,7 +66,7 @@ final class SyncResultTest extends TestCase
     }
 
     #[Test]
-    public function testFailureWithData(): void
+    public function test_failure_with_data(): void
     {
         $result = SyncResult::failure('Something went wrong', '500', ['detail' => 'server error']);
 
